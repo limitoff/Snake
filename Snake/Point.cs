@@ -27,7 +27,7 @@ namespace Snake
             sym = p.sym;
         }
 
-        public void Move(int offset, Direction direction)
+        public void MovePoint(int offset, Direction direction)
         {
             if (direction == Direction.RIGHT)
             {
@@ -56,6 +56,12 @@ namespace Snake
         public override string ToString()
         {
             return x + ", " + y + ", " + sym;
+        }
+
+        internal void Clear()
+        {
+            sym = ' ';
+            DrawPoint();
         }
     }
 }
