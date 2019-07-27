@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Snake
 {
@@ -11,66 +7,40 @@ namespace Snake
     {
         static void Main(string[] args)
         {
-            VerticalLine v1 = new VerticalLine(0, 10, 5, '%');
-            Draw(v1);
+            Console.SetBufferSize(80, 25);
+            Console.CursorVisible = false; //Убирает видимость курсора
 
+            Walls walls = new Walls(80, 25);
+            walls.Draw();
+
+            //Отрисовка точек
             Point p = new Point(4, 5, '*');
-            Figure fSnake = new Snake(p, 4, Direction.RIGHT);
-            Draw(fSnake);
-            Snake snake = (Snake)fSnake;
+            Snake snake = new Snake(p, 4, Direction.RIGHT);
+            snake.DrawLine();
 
-            HorizontalLine h1 = new HorizontalLine(0, 5, 6, '&');
+            FoodCreator foodCreator = new FoodCreator(80, 25, '$');
+            Point food = foodCreator.CreateFood();
+            food.DrawPoint();
 
-            List<Figure> figures = new List<Figure>();
-            figures.Add(fSnake);
-            figures.Add(v1);
-            figures.Add(h1);
-
-            foreach (var f in figures)
+            while (true) //Бесконечный цикл, он означает, что код внутри цикла будет выполняться вечно.
             {
-                f.DrawLine();
+                if (walls.IsHit(snake) || snake.IsHitTail())
+                {
+                    break;
+                }
+                if (snake.Eat(food))
+                {
+                    food = foodCreator.CreateFood();
+                    food.DrawPoint();
+                }
+                else snake.MoveSnake();
+                Thread.Sleep(100);
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo key = Console.ReadKey(true);
+                    snake.HendleKey(key.Key);
+                }
             }
-
-            //Console.SetBufferSize(80, 25);
-            //Console.CursorVisible = false; //убирает видимость курсора
-            //// Отрисовка рамочки
-            //HorizontalLine topLine = new HorizontalLine(0, 78, 0, '-');
-            //HorizontalLine bottomLine = new HorizontalLine(0, 78, 24, '-');
-            //VerticalLine leftLine = new VerticalLine(0, 24, 0, '|');
-            //VerticalLine rightLine = new VerticalLine(0, 24, 78, '|');
-            //topLine.DrawLine();
-            //bottomLine.DrawLine();
-            //leftLine.DrawLine();
-            //rightLine.DrawLine();
-            //// Отрисовка точек
-            //Point p = new Point(4, 5, '*');
-            //Snake snake = new Snake(p, 4, Direction.RIGHT);
-            //snake.DrawLine();
-
-            //FoodCreator foodCreator = new FoodCreator(80, 25, '$');
-            //Point food = foodCreator.CreateFood();
-            //food.DrawPoint();
-
-            //while (true) //Бесконечный цикл, он означает, что код внутри цикла будет выполняться вечно.
-            //{
-            //    if (snake.Eat(food))
-            //    {
-            //        food = foodCreator.CreateFood();
-            //        food.DrawPoint();
-            //    }
-            //    else snake.MoveSnake();
-            //    Thread.Sleep(100);
-            //    if (Console.KeyAvailable)
-            //    {
-            //        ConsoleKeyInfo key = Console.ReadKey(true);
-            //        snake.HendleKey(key.Key);
-            //    }
-            //}
-        }
-
-        static void Draw(Figure figure)
-        {
-            figure.DrawLine();
         }
     }
 }

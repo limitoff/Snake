@@ -47,21 +47,26 @@ namespace Snake
             }
         }
 
+        internal bool IsHit(Point food)
+        {
+            return food.x == this.x && food.y == this.y;
+        }
+
         public void DrawPoint()
         {
             Console.SetCursorPosition(x, y);
             Console.Write(sym);
         }
 
-        public override string ToString()
-        {
-            return x + ", " + y + ", " + sym;
-        }
-
         internal void Clear()
         {
             sym = ' ';
             DrawPoint();
+        }
+
+        public override string ToString()
+        {
+            return x + ", " + y + ", " + sym;
         }
     }
 }

@@ -53,5 +53,27 @@ namespace Snake
             else if (key == ConsoleKey.UpArrow)
                 direction = Direction.UP;
         }
+
+        internal bool Eat(Point food)
+        {
+            Point head = GetNextPoint();
+            if (head.IsHit(food))
+            {
+                food.sym = head.sym;
+                pList.Add(food);
+                return true;
+            }
+            else return false;
+        }
+
+        internal bool IsHitTail()
+        {
+            var head = pList.Last(); //Получаем координаты головы.
+            for (int i = 0; i < pList.Count - 2; i++) //Проверяем есть ли совподение между координатами головной точки и
+            {                                         //координатами точек хвоста.
+                if (head.IsHit(pList[i])) return true;
+            }
+            return false;
+        }
     }
 }

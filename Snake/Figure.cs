@@ -17,5 +17,23 @@ namespace Snake
                 p.DrawPoint();
             }
         }
+
+        internal bool IsHit(Figure figure)
+        {
+            foreach (var p in pList) //Пробегаемся по всем точкам в фигуре.
+            {
+                if (figure.IsHit(p)) return true; //Проверка пересекается ли фигура с какой либо точкой.
+            }                                     //Вызывается метод ниже:  private bool IsHit (Point point)
+            return false;
+        }
+
+        private bool IsHit (Point point)
+        {
+            foreach (var p in pList)
+            {
+                if (p.IsHit(point)) return true;
+            }
+            return false;
+        }
     }
 }
