@@ -17,5 +17,17 @@ namespace Snake
                 pList.Add(p);
             }
         }
+
+        public override void DrawLine()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            //foreach (Point point in pList)
+            //{
+            //    point.DrawPoint();
+            //}
+            base.DrawLine(); //Так как закомментированный код есть в методе базового класса, можем убрать его и заменить
+                             //поввторяющийся код этой одной строкой.
+            Console.ForegroundColor = ConsoleColor.White;
+        }
     }
 }
