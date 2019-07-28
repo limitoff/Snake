@@ -8,65 +8,47 @@ namespace Snake
 {
     class Point
     {
-        public int x;
-        public int y;
-        public char sym;
+        public int X { get; set; }
+        public int Y { get; set; }
+        public char Sym { get; set; }
 
         public Point() { }
 
         public Point(int _x, int _y, char _sym)
         {
-            x = _x;
-            y = _y;
-            sym = _sym;
+            X = _x;
+            Y = _y;
+            Sym = _sym;
         }
         public Point(Point p)
         {
-            x = p.x;
-            y = p.y;
-            sym = p.sym;
+            X = p.X;
+            Y = p.Y;
+            Sym = p.Sym;
         }
 
         public void MovePoint(int offset, Direction direction)
         {
-            if (direction == Direction.RIGHT)
-            {
-                x += offset;
-            }
-            else if (direction == Direction.LEFT)
-            {
-                x -= offset;
-            }
-            else if (direction == Direction.UP)
-            {
-                y -= offset;
-            }
-            else if (direction == Direction.DOWN)
-            {
-                y += offset;
-            }
+            if (direction == Direction.RIGHT) X += offset;
+            else if (direction == Direction.LEFT) X -= offset;
+            else if (direction == Direction.UP) Y -= offset;
+            else if (direction == Direction.DOWN) Y += offset;
         }
 
-        internal bool IsHit(Point food)
-        {
-            return food.x == this.x && food.y == this.y;
-        }
+        internal bool IsHit(Point food) => food.X == this.X && food.Y == this.Y;
 
         public void DrawPoint()
         {
-            Console.SetCursorPosition(x, y);
-            Console.Write(sym);
+            Console.SetCursorPosition(X, Y);
+            Console.Write(Sym);
         }
 
         internal void Clear()
         {
-            sym = ' ';
+            Sym = ' ';
             DrawPoint();
         }
 
-        public override string ToString()
-        {
-            return x + ", " + y + ", " + sym;
-        }
+        public override string ToString() => X + ", " + Y + ", " + Sym;
     }
 }

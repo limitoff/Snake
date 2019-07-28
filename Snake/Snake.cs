@@ -9,8 +9,7 @@ namespace Snake
     class Snake : Figure
     {
         Direction direction;
-
-
+        
         public Snake(Point tail, int length, Direction _direction)
         {
             direction = _direction;
@@ -59,7 +58,7 @@ namespace Snake
             Point head = GetNextPoint();
             if (head.IsHit(food))
             {
-                food.sym = head.sym;
+                food.Sym = head.Sym;
                 pList.Add(food);
                 return true;
             }

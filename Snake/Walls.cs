@@ -29,17 +29,13 @@ namespace Snake
         internal bool IsHit(Figure figure) //В функцию передаётся змейка, сама функция принимает любую фигуру.
         {
             foreach (var wall in wallList)
-            {
                 if (wall.IsHit(figure)) return true; //Проверка есть ли столкновение (пересечение) линии с фигурой.
-            }
             return false;
         }
         public void Draw()
         {
             foreach (var wall in wallList)
-            {
                 wall.DrawLine();
-            }
         }
     }
 }

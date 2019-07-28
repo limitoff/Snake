@@ -24,10 +24,7 @@ namespace Snake
 
             while (true) //Бесконечный цикл, он означает, что код внутри цикла будет выполняться вечно.
             {
-                if (walls.IsHit(snake) || snake.IsHitTail())
-                {
-                    break;
-                }
+                if (walls.IsHit(snake) || snake.IsHitTail()) break;
                 if (snake.Eat(food))
                 {
                     food = foodCreator.CreateFood();
